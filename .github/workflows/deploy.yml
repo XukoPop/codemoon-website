@@ -12,12 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+          token: ${{ secrets.MOONTOKEN }}
       
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'  # Added caching for faster installations
           
       - name: Install Dependencies
         run: |
@@ -34,5 +35,5 @@ jobs:
         with:
           folder: build
           branch: gh-pages
-          token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+          token: ${{ secrets.MOONTOKEN }}  # Updated to use MOONTOKEN
           clean: true
