@@ -1,22 +1,127 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { MessageCircle, Award, UserCheck, AlertCircle } from 'lucide-react';
+
+const Star = ({ style }) => (
+  <div 
+    className="absolute rounded-full bg-white"
+    style={style}
+  />
+);
+
+const StarField = () => {
+  const [stars, setStars] = useState([]);
+  const [time, setTime] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const generateStars = useCallback(() => {
+    const starCount = 200; // Increased count for better coverage
+    const stars = [];
+    
+    // Grid-based positioning for better distribution
+    const gridSize = Math.sqrt(starCount);
+    const cellWidth = 100 / gridSize;
+    const cellHeight = 200 / gridSize; // 200 to account for scroll space
+
+    for (let i = 0; i < starCount; i++) {
+      const gridX = Math.floor(i % gridSize);
+      const gridY = Math.floor(i / gridSize);
+
+      // Add random offset within each grid cell
+      const x = (gridX * cellWidth) + (Math.random() * cellWidth * 0.8);
+      const y = (gridY * cellHeight) + (Math.random() * cellHeight * 0.8);
+
+      stars.push({
+        id: i,
+        x,
+        y,
+        size: Math.random() * 2.5 + 1, // Reduced size (1-3.5px)
+        baseOpacity: Math.random() * 0.4 + 0.6,
+        layer: Math.floor(Math.random() * 3),
+        twinkleSpeed: Math.random() * 0.005 + 0.003,
+        phase: Math.random() * Math.PI * 2,
+        glowSize: Math.random() * 2 + 1.5 // Reduced glow
+      });
+    }
+
+    return stars;
+  }, []);
+
+  useEffect(() => {
+    setStars(generateStars());
+
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    let lastTime = Date.now();
+    let animationFrameId;
+
+    const animate = () => {
+      const currentTime = Date.now();
+      const deltaTime = currentTime - lastTime;
+      lastTime = currentTime;
+      
+      setTime(prevTime => prevTime + deltaTime);
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [generateStars]);
+
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      {stars.map((star) => {
+        // Calculate twinkling effect
+        const twinkle = Math.sin(time * star.twinkleSpeed + star.phase) * 0.4;
+        const finalOpacity = Math.max(0.2, Math.min(1, star.baseOpacity + twinkle));
+        
+        const scrollOffset = scrollPosition * 0.1;
+
+        return (
+          <Star
+            key={star.id}
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}% - ${scrollOffset}px`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              opacity: finalOpacity,
+              boxShadow: `0 0 ${star.size * star.glowSize}px ${star.size * (star.glowSize/3)}px rgba(255, 255, 255, ${finalOpacity * 0.7})`,
+              transition: 'opacity 0.1s ease-out',
+              zIndex: star.layer,
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+};
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-[#0a0a0f] text-white relative">
+      {/* StarField Background */}
+      <StarField />
+
       {/* Header */}
-      <header className="bg-purple-900/50 py-8">
+      <header className="relative py-8 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center gap-4">
             <img src="moon.png" alt="Moon Bot" className="w-16 h-16 rounded-full" />
-            <h1 className="text-4xl font-bold">Moon Bot</h1>
+            <h1 className="text-4xl font-bold text-white">Moon Bot</h1>
           </div>
           <p className="text-center mt-4 text-purple-200">Activity Tracking System for MOON Discord Server</p>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-12 relative z-10">
         {/* Introduction */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-4 text-purple-400">How It Works</h2>
@@ -29,7 +134,7 @@ const App = () => {
         {/* Key Features */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Message Tracking */}
-          <div className="bg-purple-900/20 p-6 rounded-lg border border-purple-500/20">
+          <div className="bg-purple-900/20 backdrop-blur-sm p-6 rounded-lg border border-purple-500/20 hover:bg-purple-900/30 transition-all duration-300">
             <div className="flex items-center gap-3 mb-4">
               <MessageCircle className="text-purple-400" size={24} />
               <h3 className="text-xl font-semibold">Message Tracking</h3>
@@ -42,7 +147,7 @@ const App = () => {
           </div>
 
           {/* Activity Requirements */}
-          <div className="bg-purple-900/20 p-6 rounded-lg border border-purple-500/20">
+          <div className="bg-purple-900/20 backdrop-blur-sm p-6 rounded-lg border border-purple-500/20 hover:bg-purple-900/30 transition-all duration-300">
             <div className="flex items-center gap-3 mb-4">
               <UserCheck className="text-purple-400" size={24} />
               <h3 className="text-xl font-semibold">Activity System</h3>
@@ -55,7 +160,7 @@ const App = () => {
           </div>
 
           {/* Rewards */}
-          <div className="bg-purple-900/20 p-6 rounded-lg border border-purple-500/20">
+          <div className="bg-purple-900/20 backdrop-blur-sm p-6 rounded-lg border border-purple-500/20 hover:bg-purple-900/30 transition-all duration-300">
             <div className="flex items-center gap-3 mb-4">
               <Award className="text-purple-400" size={24} />
               <h3 className="text-xl font-semibold">Milestone Rewards</h3>
@@ -70,7 +175,7 @@ const App = () => {
 
         {/* Inactivity Warnings */}
         <section className="mt-12">
-          <div className="bg-red-900/20 p-6 rounded-lg border border-red-500/20">
+          <div className="bg-red-900/20 backdrop-blur-sm p-6 rounded-lg border border-red-500/20 hover:bg-red-900/30 transition-all duration-300">
             <div className="flex items-center gap-3 mb-4">
               <AlertCircle className="text-red-400" size={24} />
               <h3 className="text-xl font-semibold">Inactivity System</h3>
@@ -90,7 +195,7 @@ const App = () => {
         {/* Common Commands */}
         <section className="mt-12">
           <h2 className="text-2xl font-bold mb-4 text-purple-400">Useful Commands</h2>
-          <div className="bg-purple-900/20 p-6 rounded-lg border border-purple-500/20">
+          <div className="bg-purple-900/20 backdrop-blur-sm p-6 rounded-lg border border-purple-500/20 hover:bg-purple-900/30 transition-all duration-300">
             <div className="grid gap-4">
               <div>
                 <code className="bg-purple-900/40 px-2 py-1 rounded">/m</code>
@@ -106,7 +211,7 @@ const App = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-purple-900/50 py-6 mt-12">
+      <footer className="relative py-6 mt-12 backdrop-blur-sm">
         <div className="container mx-auto px-4 text-center text-purple-200">
           <p>Join our community at discord.gg/codemoon</p>
         </div>
