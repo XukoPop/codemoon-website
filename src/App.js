@@ -175,8 +175,10 @@ const App = () => {
 
                 {/* CTA Section */}
                 <section className="py-12 px-4">
-                    <div className="max-w-4xl mx-auto text-center space-y-8">
-                        <a href="discord.gg/codemoon" 
+                    <div className="max-w-4xl mx-auto text-center flex justify-center items-center gap-4">
+                        <a href="https://discord.com/invite/codemoon" 
+                           target="_blank"
+                           rel="noopener noreferrer"
                            className="primary-button ripple-effect">
                             Join MOON
                             <ChevronRight className="ml-2 w-5 h-5" />
@@ -184,9 +186,9 @@ const App = () => {
 
                         <button
                             onClick={() => setShowActivity(!showActivity)}
-                            className="block mx-auto mt-6 px-6 py-2 bg-purple-500/20 hover:bg-purple-500/30 
+                            className="px-6 py-3 bg-purple-500/20 hover:bg-purple-500/30 
                                      text-purple-200 rounded-full border border-purple-500/20 transition-all 
-                                     duration-300 text-sm">
+                                     duration-300 text-sm inline-flex items-center">
                             Learn About Activity System
                         </button>
                     </div>
