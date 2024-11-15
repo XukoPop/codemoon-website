@@ -1,3 +1,385 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: #0a0118;
+  overflow-x: hidden;
+}
+
+/* Star Styles */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 1.5s infinite ease-in-out;
+}
+
+.star.medium {
+  width: 3px;
+  height: 3px;
+}
+
+.star.large {
+  width: 4px;
+  height: 4px;
+}
+
+.star::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+  transform: translate(-50%, -50%);
+  animation: twinkle-after 1.5s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes twinkle-after {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Shooting Star Effect */
+.shooting-star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  animation: shoot 7s linear infinite;
+  opacity: 0;
+}
+
+.shooting-star::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, white, transparent);
+  transform: translateY(-50%);
+}
+
+@keyframes shoot {
+  0% {
+    transform: translate(0, 0) rotate(-45deg);
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate(200px, 200px) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+/* Feature Cards */
+.feature-card {
+  @apply bg-purple-900/20 backdrop-blur-sm p-6 rounded-lg border border-purple-500/20 
+         hover:bg-purple-900/30 transition-all duration-300 hover:border-purple-500/40
+         transform hover:-translate-y-1;
+}
+
+/* Space Dust */
+.space-dust {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: white;
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.1);
+  animation: float 5s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.2);
+  }
+}
+
+/* Text Glow Effect */
+.moon-text-glow {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7),
+               0 0 20px rgba(255, 255, 255, 0.5),
+               0 0 30px rgba(147, 51, 234, 0.5),
+               0 0 40px rgba(147, 51, 234, 0.3);
+}
+
+/* Moon Animation */
+.moon {
+  animation: moonFloat 6s infinite ease-in-out;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes moonFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Aurora Effect */
+.aurora {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  animation: aurora 20s infinite;
+  opacity: 0.1;
+}
+
+.aurora-1 {
+  background: linear-gradient(45deg, transparent 70%, rgba(147, 51, 234, 0.3));
+  animation-delay: -5s;
+}
+
+.aurora-2 {
+  background: linear-gradient(-45deg, transparent 70%, rgba(99, 102, 241, 0.3));
+  animation-delay: -10s;
+}
+
+.aurora-3 {
+  background: linear-gradient(90deg, transparent 70%, rgba(139, 92, 246, 0.3));
+  animation-delay: -15s;
+}
+
+@keyframes aurora {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-25%) translateY(-5%) rotate(15deg);
+  }
+  50% {
+    transform: translateX(0%) translateY(-10%) rotate(0deg);
+  }
+  75% {
+    transform: translateX(-25%) translateY(-5%) rotate(-15deg);
+  }
+}
+
+/* Modal animation */
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-enter {
+  animation: modalFade 0.3s ease-out forwards;
+}
+
+/* Button Pulse Animation */
+@keyframes buttonPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(147, 51, 234, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(147, 51, 234, 0);
+    }
+  }
+  
+  /* Ripple Effect Animation */
+  @keyframes ripple {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+  
+  /* Hover Glow Animation */
+  @keyframes buttonGlow {
+    0%, 100% {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3),
+                   0 0 20px rgba(147, 51, 234, 0.3);
+    }
+    50% {
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.5),
+                   0 0 30px rgba(147, 51, 234, 0.5);
+    }
+  }
+  
+  /* Button Base Styles */
+  .animated-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  /* Primary Button Animation */
+  .primary-button {
+    @apply inline-flex items-center px-8 py-3 bg-purple-700/30 
+           text-white rounded-full border border-purple-500/30 
+           backdrop-blur-sm text-lg font-semibold;
+    animation: buttonPulse 2s infinite;
+  }
+  
+  .primary-button:hover {
+    @apply bg-purple-700/50 border-purple-500/50;
+    transform: translateY(-2px) scale(1.02);
+    animation: buttonPulse 2s infinite, buttonGlow 2s infinite;
+  }
+  
+  .primary-button:active {
+    transform: translateY(1px) scale(0.98);
+  }
+  
+  /* Secondary Button Animation */
+  .secondary-button {
+    @apply px-6 py-2 bg-purple-500/20 text-purple-200 rounded-full 
+           border border-purple-500/20 text-sm;
+    transition: all 0.3s ease;
+  }
+  
+  .secondary-button:hover {
+    @apply bg-purple-500/30 border-purple-500/40;
+    transform: translateY(-1px);
+  }
+  
+  .secondary-button:active {
+    transform: translateY(1px);
+  }
+  
+  /* Tab Button Animation */
+  .tab-button {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: theme('colors.purple.400');
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+  
+  .tab-button:hover::after {
+    width: 100%;
+  }
+  
+  /* Ripple Effect for Buttons */
+  .ripple-effect {
+    position: relative;
+  }
+  
+  .ripple-effect::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0s;
+  }
+  
+  .ripple-effect:active::before {
+    transform: translate(-50%, -50%) scale(4);
+    transition: transform 0.5s;
+    opacity: 0;
+  }
+  
+  /* Feature Card Enhanced Animation */
+  .feature-card {
+    @apply bg-purple-900/20 backdrop-blur-sm p-6 rounded-lg border border-purple-500/20 
+           transition-all duration-300;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+  
+  .feature-card:hover {
+    @apply bg-purple-900/30 border-purple-500/40;
+    transform: translateY(-5px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 10px 30px -5px rgba(147, 51, 234, 0.3);
+  }
+  
+  /* Modal Animation Enhancement */
+  .modal-content {
+    animation: modalSlide 0.4s ease-out forwards;
+  }
+  
+  @keyframes modalSlide {
+    from {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* Loading State Animation */
+  .loading-state {
+    position: relative;
+  }
+  
+  @keyframes loadingPulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  .loading-state::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: currentColor;
+    animation: loadingPulse 1.5s ease-in-out infinite;
+  }
