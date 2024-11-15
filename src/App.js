@@ -314,10 +314,57 @@ const App = () => {
                                 {/* Milestones Tab */}
                                 {activeTab === 'milestones' && (
                                     <div className="space-y-6">
+                                        <style>
+                                            {`
+                                                .shadow-glow-blue {
+                                                    text-shadow: 0 0 10px #60A5FA, 0 0 20px #60A5FA, 0 0 30px #60A5FA;
+                                                }
+                                                
+                                                .shadow-glow-red {
+                                                    text-shadow: 0 0 10px #EF4444, 0 0 20px #EF4444, 0 0 30px #EF4444;
+                                                }
+                                                
+                                                .shadow-glow-gray {
+                                                    text-shadow: 0 0 10px #4B5563, 0 0 20px #4B5563, 0 0 30px #4B5563;
+                                                }
+                                                
+                                                .shadow-glow-white {
+                                                    text-shadow: 0 0 10px #FFFFFF, 0 0 20px #FFFFFF, 0 0 30px #FFFFFF;
+                                                }
+
+                                                .perm-tooltip {
+                                                    position: absolute;
+                                                    top: 100%;
+                                                    left: 0;
+                                                    background: rgba(17, 24, 39, 0.95);
+                                                    border: 1px solid rgba(139, 92, 246, 0.2);
+                                                    border-radius: 0.5rem;
+                                                    padding: 0.75rem;
+                                                    margin-top: 0.5rem;
+                                                    opacity: 0;
+                                                    visibility: hidden;
+                                                    transition: all 0.2s ease;
+                                                    z-index: 50;
+                                                    width: max-content;
+                                                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                                                }
+
+                                                .perm-container:hover .perm-tooltip {
+                                                    opacity: 1;
+                                                    visibility: visible;
+                                                }
+                                            `}
+                                        </style>
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <div className="bg-purple-900/20 p-6 rounded-lg border border-purple-500/30">
                                                 <div className="flex items-center justify-between mb-4">
-                                                    <h3 className="text-xl font-semibold text-white">Novice</h3>
+                                                    <div className="relative perm-container">
+                                                        <h3 className="text-xl font-semibold text-blue-400 animate-pulse shadow-glow-blue">Code: Blue Moon</h3>
+                                                        <div className="perm-tooltip">
+                                                            <p className="text-white font-medium mb-1">Perms:</p>
+                                                            <p className="text-purple-200">• Picture Permissions</p>
+                                                        </div>
+                                                    </div>
                                                     <span className="text-purple-400">2,000 messages</span>
                                                 </div>
                                                 <div className="w-full bg-purple-900/30 rounded-full h-2 mb-4">
@@ -327,7 +374,13 @@ const App = () => {
 
                                             <div className="bg-purple-900/20 p-6 rounded-lg border border-purple-500/30">
                                                 <div className="flex items-center justify-between mb-4">
-                                                    <h3 className="text-xl font-semibold text-white">Regular</h3>
+                                                    <div className="relative perm-container">
+                                                        <h3 className="text-xl font-semibold text-red-500 animate-pulse shadow-glow-red">Code: Blood Moon</h3>
+                                                        <div className="perm-tooltip">
+                                                            <p className="text-white font-medium mb-1">Perms:</p>
+                                                            <p className="text-purple-200">• Username Change Permissions</p>
+                                                        </div>
+                                                    </div>
                                                     <span className="text-purple-400">4,000 messages</span>
                                                 </div>
                                                 <div className="w-full bg-purple-900/30 rounded-full h-2 mb-4">
@@ -337,7 +390,13 @@ const App = () => {
 
                                             <div className="bg-purple-900/20 p-6 rounded-lg border border-purple-500/30">
                                                 <div className="flex items-center justify-between mb-4">
-                                                    <h3 className="text-xl font-semibold text-white">Expert</h3>
+                                                    <div className="relative perm-container">
+                                                        <h3 className="text-xl font-semibold text-gray-500 animate-pulse shadow-glow-gray">Code: Crescent Moon</h3>
+                                                        <div className="perm-tooltip">
+                                                            <p className="text-white font-medium mb-1">Perms:</p>
+                                                            <p className="text-purple-200">• Any Role Color</p>
+                                                        </div>
+                                                    </div>
                                                     <span className="text-purple-400">6,000 messages</span>
                                                 </div>
                                                 <div className="w-full bg-purple-900/30 rounded-full h-2 mb-4">
@@ -347,7 +406,13 @@ const App = () => {
 
                                             <div className="bg-purple-900/20 p-6 rounded-lg border border-purple-500/30">
                                                 <div className="flex items-center justify-between mb-4">
-                                                    <h3 className="text-xl font-semibold text-white">Master</h3>
+                                                    <div className="relative perm-container">
+                                                        <h3 className="text-xl font-semibold text-white animate-pulse shadow-glow-white">Code: Full Moon</h3>
+                                                        <div className="perm-tooltip">
+                                                            <p className="text-white font-medium mb-1">Perms:</p>
+                                                            <p className="text-purple-200 italic">• Coming Soon...</p>
+                                                        </div>
+                                                    </div>
                                                     <span className="text-purple-400">10,000 messages</span>
                                                 </div>
                                                 <div className="w-full bg-purple-900/30 rounded-full h-2 mb-4">
@@ -358,8 +423,8 @@ const App = () => {
                                     </div>
                                 )}
 
-{/* Inactivity Tab */}
-{activeTab === 'inactivity' && (
+                                {/* Inactivity Tab */}
+                                {activeTab === 'inactivity' && (
                                     <div className="space-y-6">
                                         <div className="bg-red-900/20 p-6 rounded-lg border border-red-500/20">
                                             <h3 className="text-xl font-semibold text-white mb-4 flex items-center">
