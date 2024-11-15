@@ -15,6 +15,7 @@ import {
     Star
 } from 'lucide-react';
 
+
 const App = () => {
     const [showActivity, setShowActivity] = useState(false);
     const [activeTab, setActiveTab] = useState('overview');
@@ -36,8 +37,22 @@ const App = () => {
                     />
                 ))}
                 
+
+                {/* Meteorite Flashes */}
+                {[...Array(6)].map((_, i) => (
+                    <div
+                        key={`meteorite-${i}`}
+                        className="meteorite-flash"
+                        style={{
+                            top: `${Math.random() * 100}%`,
+                            left: `${Math.random() * 100}%`,
+                            animationDelay: `${Math.random() * 15}s`,
+                            animationDuration: `${8 + Math.random() * 4}s`
+                        }}
+                    />
+                ))}
                 {/* Medium Stars */}
-                {[...Array(50)].map((_, i) => (
+                {[...Array(50)].map((_, i) => ( 
                     <div
                         key={`medium-${i}`}
                         className="star medium"
@@ -62,18 +77,7 @@ const App = () => {
                     />
                 ))}
 
-                {/* Shooting Stars */}
-                {[...Array(5)].map((_, i) => (
-                    <div
-                        key={`shooting-${i}`}
-                        className="shooting-star"
-                        style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            animationDelay: `${Math.random() * 7}s`
-                        }}
-                    />
-                ))}
+
 
                 {/* Space Dust */}
                 {[...Array(30)].map((_, i) => (
@@ -101,6 +105,8 @@ const App = () => {
                     <div className="absolute -inset-4 rounded-full bg-white opacity-10 blur-xl"></div>
                 </div>
             </div>
+
+
 
             {/* Aurora Effect */}
             <div className="fixed inset-0 opacity-30">
