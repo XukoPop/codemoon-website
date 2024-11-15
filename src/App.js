@@ -257,7 +257,7 @@ const App = () => {
                                                 </li>
                                                 <li className="flex items-center">
                                                     <Shield className="w-4 h-4 mr-2 text-purple-400 flex-shrink-0" />
-                                                    <span className="text-sm sm:text-base">Need 30 messages per day to stay active</span>
+                                                    <span className="text-sm sm:text-base">Need to maintain regular activity to stay active.</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -270,7 +270,7 @@ const App = () => {
                                             <div className="grid sm:grid-cols-2 gap-4">
                                                 <div className="space-y-1 sm:space-y-2">
                                                     <p className="text-white font-medium text-sm sm:text-base">Daily Activity</p>
-                                                    <p className="text-purple-200 text-sm">Minimum 30 messages/day requirement</p>
+                                                    <p className="text-purple-200 text-sm">Stay engaged with the community</p>
                                                 </div>
                                                 <div className="space-y-1 sm:space-y-2">
                                                     <p className="text-white font-medium text-sm sm:text-base">Tracking Period</p>
@@ -442,7 +442,7 @@ const App = () => {
                                                     {
                                                         step: 3,
                                                         title: "Reactivation Period",
-                                                        desc: "Send 30+ messages within 3 days to remove the inactive role"
+                                                        desc: "Meet activity requirements for 3 days to remove inactive role"
                                                     },
                                                     {
                                                         step: 4,
